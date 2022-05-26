@@ -16,6 +16,7 @@ import javafx.stage.WindowEvent;
 
 import java.util.Random;
 
+
 public class Generator implements EventHandler<ActionEvent> {
 
     private Button generateButton;
@@ -206,13 +207,72 @@ public class Generator implements EventHandler<ActionEvent> {
     public void run ( int width,int length, double from, double to , boolean coherent ) {
         Graf graf = new Graf(width*length);
         Random random = new Random();
-        for ( Wierzcholek w:graf) {
-            w.addKrawedz(random.nextInt(0,width*length),random.nextDouble(from,to));
-        }
-        for ( Wierzcholek w: graf) {
-            for ( Krawedz k : w) {
-                System.out.println(k.getTo() + " " + k.getWaga());
+        if (coherent) {
+            int i = 0;
+            int j = 0;
+            for (Wierzcholek w : graf) {
+                if (width == 1 && length ==1) { //wyjątek dla grafu 1x1
+                    w.addKrawedz(1, random.nextDouble(0, 0));
+                }
+                if (i != (width * (j + 1)) - 1) { //prawa
+                    w.addKrawedz(i + 1, random.nextDouble(from, to));
+                }
+                if (i < width * length - width) { //dół
+                    w.addKrawedz(width + i, random.nextDouble(from, to));
+                }
+                if (i != width * j) { //lewa
+                    w.addKrawedz(i - 1, random.nextDouble(from, to));
+                }
+                if (i - width >= 0) { //góra
+                    w.addKrawedz(i - width, random.nextDouble(from, to));
+                }
+                if (i == width * j + width - 1) {
+                    j++;
+                }
+                i++;
             }
         }
+        if (!coherent) {
+            int i = 0;
+            int j = 0;
+            for (Wierzcholek w : graf) {
+                if (width == 1 && length ==1) { //wyjątek dla grafu 1x1
+                    if(random.nextBoolean()) {
+                        w.addKrawedz(1, random.nextDouble(0, 0));
+                    }
+                }
+                if (i != (width * (j + 1)) - 1) { //prawa
+                    if(random.nextBoolean()) {
+                        w.addKrawedz(i + 1, random.nextDouble(from, to));
+                    }
+                }
+                if (i < width * length - width) { //dół
+                    if(random.nextBoolean()) {
+                        w.addKrawedz(width + i, random.nextDouble(from, to));
+                    }
+                }
+                if (i != width * j) { //lewa
+                    if(random.nextBoolean()) {
+                        w.addKrawedz(i - 1, random.nextDouble(from, to));
+                    }
+                }
+                if (i - width >= 0) { //góra
+                    if(random.nextBoolean()) {
+                        w.addKrawedz(i - width, random.nextDouble(from, to));
+                    }
+                }
+                if (i == width * j + width - 1) {
+                    j++;
+                }
+                i++;
+            }
+        }
+
+                for (Wierzcholek w : graf) {
+                    for (Krawedz k : w) {
+                        System.out.println(k.getTo() + " " + k.getWaga());
+                    }
+                    System.out.println(".");
+                }
+        }
     }
-}

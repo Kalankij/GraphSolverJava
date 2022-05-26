@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 public class Graf implements Iterable<Wierzcholek>{
     private final int rozmiar;
-    Wierzcholek [] wierzcholki;
+    static Wierzcholek [] wierzcholki;
 
     public Graf(int rozmiar) {
         this.rozmiar = rozmiar;
