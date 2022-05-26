@@ -11,11 +11,9 @@ import javafx.stage.WindowEvent;
 
 public class Redraw implements EventHandler<ActionEvent>{
 
-    private Button redrawButton;
     private Group root;
 
-    public Redraw (Button redrawButton, Group root ) {
-        this.redrawButton = redrawButton;
+    public Redraw ( Group root ) {
         this.root = root;
     }
     @Override

@@ -16,7 +16,6 @@ import javafx.stage.WindowEvent;
 
 import java.util.Random;
 
-
 public class Generator implements EventHandler<ActionEvent> {
 
     private Button generateButton;
@@ -32,8 +31,9 @@ public class Generator implements EventHandler<ActionEvent> {
     private Label weightLabel;
     private TextField weightFromTxt;
     private TextField weightToTxt;
+    private static Graf graf;
 
-    public Generator (Group root , TextField sizeMainTxt, TextField cohMainTxt) {
+    public Generator ( Group root , TextField sizeMainTxt, TextField cohMainTxt) {
         this.root = root;
         this.sizeMainTxt = sizeMainTxt;
         this.cohMainTxt = cohMainTxt;
@@ -131,7 +131,7 @@ public class Generator implements EventHandler<ActionEvent> {
                     lenTxt.setText("10");
                 }
                 if (cohTxt.getText().equals("")) {
-                    cohTxt.setText("false");
+                    cohTxt.setText("true");
                 }
                 if (weightFromTxt.getText().equals("")) {
                     weightFromTxt.setText("0.00");
@@ -175,7 +175,7 @@ public class Generator implements EventHandler<ActionEvent> {
                     coherent = Boolean.parseBoolean(cohTxt.getText());
                 }
                 if (blad == 0) {
-                    run(width,length,from,to,coherent);
+                    graf = run(width,length,from,to,coherent);
                     sizeMainTxt.setText(widthTxt.getText() + "x" + lenTxt.getText());
                     cohMainTxt.setText(cohTxt.getText());
                     secStage.close();
@@ -204,14 +204,14 @@ public class Generator implements EventHandler<ActionEvent> {
             }
         });
     }
-    public void run ( int width,int length, double from, double to , boolean coherent ) {
-        Graf graf = new Graf(width*length);
+    public Graf run ( int width,int length, double from, double to , boolean coherent ) {
+        Graf graf = new Graf(length, width);
         Random random = new Random();
         if (coherent) {
             int i = 0;
             int j = 0;
             for (Wierzcholek w : graf) {
-                if (width == 1 && length ==1) { //wyjątek dla grafu 1x1
+                if (width == 1 && length == 1) { //wyjątek dla grafu 1x1
                     w.addKrawedz(1, random.nextDouble(0, 0));
                 }
                 if (i != (width * (j + 1)) - 1) { //prawa
@@ -236,28 +236,28 @@ public class Generator implements EventHandler<ActionEvent> {
             int i = 0;
             int j = 0;
             for (Wierzcholek w : graf) {
-                if (width == 1 && length ==1) { //wyjątek dla grafu 1x1
-                    if(random.nextBoolean()) {
+                if (width == 1 && length == 1) { //wyjątek dla grafu 1x1
+                    if (random.nextBoolean()) {
                         w.addKrawedz(1, random.nextDouble(0, 0));
                     }
                 }
                 if (i != (width * (j + 1)) - 1) { //prawa
-                    if(random.nextBoolean()) {
+                    if (random.nextBoolean()) {
                         w.addKrawedz(i + 1, random.nextDouble(from, to));
                     }
                 }
                 if (i < width * length - width) { //dół
-                    if(random.nextBoolean()) {
+                    if (random.nextBoolean()) {
                         w.addKrawedz(width + i, random.nextDouble(from, to));
                     }
                 }
                 if (i != width * j) { //lewa
-                    if(random.nextBoolean()) {
+                    if (random.nextBoolean()) {
                         w.addKrawedz(i - 1, random.nextDouble(from, to));
                     }
                 }
                 if (i - width >= 0) { //góra
-                    if(random.nextBoolean()) {
+                    if (random.nextBoolean()) {
                         w.addKrawedz(i - width, random.nextDouble(from, to));
                     }
                 }
@@ -267,12 +267,15 @@ public class Generator implements EventHandler<ActionEvent> {
                 i++;
             }
         }
-
-                for (Wierzcholek w : graf) {
-                    for (Krawedz k : w) {
-                        System.out.println(k.getTo() + " " + k.getWaga());
-                    }
-                    System.out.println(".");
-                }
-        }
+        if (ReadFile.getGraf() != null)
+            ReadFile.setGraf();
+        return graf;
     }
+
+    public static Graf getGraf() {
+        return graf;
+    }
+    public static void setGraf() {
+        graf = null;
+    }
+}

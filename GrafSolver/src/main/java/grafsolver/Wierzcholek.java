@@ -14,6 +14,9 @@ public class Wierzcholek implements Iterable<Krawedz>{
         Krawedz krawedz = new Krawedz(to,waga);
         krawedzi.add(krawedz);
     }
+    public int getNumer() {
+        return numer;
+    }
 
     public ArrayList<Krawedz> getKrawedzi() {
         return krawedzi;

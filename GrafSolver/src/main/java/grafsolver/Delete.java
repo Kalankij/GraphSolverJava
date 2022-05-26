@@ -11,11 +11,9 @@ import javafx.stage.WindowEvent;
 
 public class Delete implements EventHandler<ActionEvent> {
 
-    private Button deleteButton;
     private Group root;
 
-    public Delete (Button deleteButton, Group root ) {
-        this.deleteButton = deleteButton;
+    public Delete ( Group root ) {
         this.root = root;
     }
     @Override

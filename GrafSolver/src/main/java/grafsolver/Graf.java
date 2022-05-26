@@ -6,15 +6,27 @@ import java.util.Iterator;
 
 public class Graf implements Iterable<Wierzcholek>{
     private final int rozmiar;
-    static Wierzcholek [] wierzcholki;
+    private int length;
+    private int width;
+    Wierzcholek [] wierzcholki;
 
-    public Graf(int rozmiar) {
-        this.rozmiar = rozmiar;
+    public Graf(int length, int width) {
+        this.width = width;
+        this.length = length;
+        this.rozmiar = width*length;
         wierzcholki= new Wierzcholek[rozmiar];
         for ( int i = 0; i < rozmiar; i++) {
             Wierzcholek tmp = new Wierzcholek(i);
             wierzcholki[i] = tmp;
         }
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getLength() {
+        return length;
     }
 
     public Wierzcholek getWierzcholek(int numer) {

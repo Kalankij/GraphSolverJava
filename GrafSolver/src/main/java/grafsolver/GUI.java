@@ -29,7 +29,8 @@ public class GUI extends Application {
     private TextField cohTxt;
     private TextField resTxt;
     private Group root = new Group();
-    private Scene scene = new Scene(root,WIDTH,HEIGHT);;
+    private Scene scene = new Scene(root,WIDTH,HEIGHT);
+    private Graf graf;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -44,7 +45,6 @@ public class GUI extends Application {
         redrawButton.setLayoutY(0);
         redrawButton.setPrefSize(100,25);
         redrawButton.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR,14));
-        redrawButton.setOnAction(new Redraw(redrawButton,root));
         redrawButton.setFocusTraversable(false);
 
         saveButton = new Button("Save");
@@ -52,7 +52,6 @@ public class GUI extends Application {
         saveButton.setLayoutY(0);
         saveButton.setPrefSize(100,25);
         saveButton.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR,14));
-        saveButton.setOnAction(new Save(saveButton,root));
         saveButton.setFocusTraversable(false);
 
         readfileButton = new Button("Read File");
@@ -60,7 +59,6 @@ public class GUI extends Application {
         readfileButton.setLayoutY(0);
         readfileButton.setPrefSize(100,25);
         readfileButton.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR,14));
-        readfileButton.setOnAction(new ReadFile(root));
         readfileButton.setFocusTraversable(false);
 
         deleteButton = new Button("Delete");
@@ -68,7 +66,6 @@ public class GUI extends Application {
         deleteButton.setLayoutY(0);
         deleteButton.setPrefSize(100,25);
         deleteButton.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR,14));
-        deleteButton.setOnAction(new Delete(deleteButton,root));
         deleteButton.setFocusTraversable(false);
 
         sizeLabel = new Label("Grid Size: ");
@@ -119,7 +116,11 @@ public class GUI extends Application {
         resTxt.setFocusTraversable(false);
         resTxt.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR,14));
 
+        readfileButton.setOnAction(new ReadFile(root));
         generateButton.setOnAction(new Generator(root,sizeTxt,cohTxt));
+        redrawButton.setOnAction(new Redraw(root));
+        saveButton.setOnAction(new Save(root));
+        deleteButton.setOnAction(new Delete(root));
 
         root.getChildren().add(generateButton);
         root.getChildren().add(redrawButton);
