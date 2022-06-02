@@ -216,7 +216,7 @@ public class GUI extends Application {
         resTxt.setFocusTraversable(false);
         resTxt.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR,14));
 
-        readfileButton.setOnAction(new ReadFile(root));
+        readfileButton.setOnAction(new ReadFile(root,sizeTxt,cohTxt, examplewagefrom, examplewageto));
         generateButton.setOnAction(new Generator(root,sizeTxt,cohTxt, examplewagefrom, examplewageto));
         redrawButton.setOnAction(new Redraw(root));
         saveButton.setOnAction(new Save(root));

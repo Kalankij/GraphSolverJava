@@ -31,6 +31,10 @@ import java.util.regex.Pattern;
 
 public class ReadFile implements EventHandler<ActionEvent> {
 
+    private  TextField sizeMainTxt;
+    private  TextField cohMainTxt;
+    private  TextField wagescalefrom;
+    private  TextField wagescaleto;
     private Button readfileButton;
     private Button chooseButton;
     private TextField pathTxt;
@@ -42,8 +46,12 @@ public class ReadFile implements EventHandler<ActionEvent> {
     private static Graf graf;
     private final FileChooser fileChooser = new FileChooser();
 
-    public ReadFile (  Group root ) {
+    public ReadFile ( Group root , TextField sizeMainTxt, TextField cohMainTxt, TextField wagescalefrom, TextField wagescaleto) {
         this.root = root;
+        this.sizeMainTxt = sizeMainTxt;
+        this.cohMainTxt = cohMainTxt;
+        this.wagescalefrom = wagescalefrom;
+        this.wagescaleto = wagescaleto;
     }
     @Override
     public void handle(ActionEvent event) {
@@ -106,6 +114,14 @@ public class ReadFile implements EventHandler<ActionEvent> {
             public void handle(ActionEvent actionEvent) {
                 try {
                     graf = wczytaj(file);
+                    Draw.drawGraf(graf,root);
+                    sizeMainTxt.setText(graf.getLength()+"x"+graf.getWidth());
+                    if (BFS.run(graf))
+                        cohMainTxt.setText("true(BFS)");
+                    if (!BFS.run(graf))
+                        cohMainTxt.setText("false(BFS)");
+                    wagescalefrom.setText(String.valueOf(graf.getFrom()));
+                    wagescaleto.setText(String.valueOf(graf.getTo()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -151,7 +167,9 @@ public class ReadFile implements EventHandler<ActionEvent> {
             errorAlert.setContentText("Number of columns and rows must be a natural!!");
             errorAlert.show();
         }
-        graf = new Graf(rows,columns);
+        graf = new Graf(rows,columns,0,0);
+        double max= 0;
+        double min = 10000;
         for ( Wierzcholek w : graf) {
                 if (w.getNumer() == 0 || w.getNumer() == columns - 1 || w.getNumer() == (rows - 1) * columns || w.getNumer() == columns * rows - 1) {
                     for (int i = 0; i < 2; i++) {
@@ -172,6 +190,8 @@ public class ReadFile implements EventHandler<ActionEvent> {
                         double waga = 0;
                         try {
                             waga = Double.parseDouble(in.next());
+                            if ( waga > max ) max = waga;
+                            if (waga < min) min = waga;
                         } catch (InputMismatchException | NumberFormatException e) {
                             secStage.close();
                             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -186,6 +206,8 @@ public class ReadFile implements EventHandler<ActionEvent> {
                         int tmp = in.nextInt();
                         in.skip(" :");
                         double waga = Double.parseDouble(in.next());
+                        if ( waga > max ) max = waga;
+                        if (waga < min) min = waga;
                         w.addKrawedz(tmp, waga);
                     }
                 } else {
@@ -193,11 +215,15 @@ public class ReadFile implements EventHandler<ActionEvent> {
                         int tmp = in.nextInt();
                         in.skip(" :");
                         double waga = Double.parseDouble(in.next());
+                        if ( waga > max ) max = waga;
+                        if (waga < min) min = waga;
                         w.addKrawedz(tmp, waga);
                     }
                 }
 
         }
+        graf.setFrom(Math.round(min));
+        graf.setTo(Math.round(max));
         if ( Generator.getGraf() != null )
             Generator.setGraf();
         in.close();
