@@ -5,9 +5,9 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 public class Graf implements Iterable<Wierzcholek>{
-    private final int rozmiar;
-    private int length;
-    private int width;
+    public final int rozmiar;
+    private static int length;
+    private static int width;
     Wierzcholek [] wierzcholki;
 
     public Graf(int length, int width) {
@@ -21,11 +21,11 @@ public class Graf implements Iterable<Wierzcholek>{
         }
     }
 
-    public int getWidth() {
+    public static int getWidth() {
         return width;
     }
 
-    public int getLength() {
+    public static int getLength() {
         return length;
     }
 

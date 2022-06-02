@@ -6,17 +6,24 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
 public class GUI extends Application {
-    private final int WIDTH = 700;
-    private final int HEIGHT = 700;
+    private final int WIDTH = 850;
+    private final int HEIGHT = 745;
     private Button generateButton;
     private Button redrawButton;
     private Button saveButton;
@@ -30,10 +37,103 @@ public class GUI extends Application {
     private TextField resTxt;
     private Group root = new Group();
     private Scene scene = new Scene(root,WIDTH,HEIGHT);
+
     private Graf graf;
 
+    private Button examplebutton;
+    private Line examplelineup;
+    private Line examplelinedown;
+    private Line examplelineleft;
+    private Line examplelineright;
+    private Label exampletextup;
+    private Label exampletextdown;
+    private Label exampletextleft;
+    private Label exampletextright;
+    private Rectangle examplecolorrectangle;
+
+    private Label examplewageinfo;
+    private TextField examplewagefrom;
+
+    private TextField examplewageto;
+
+
+
+
+    Stop[] stops = new Stop[] {
+            new Stop(0, Color.RED),
+            new Stop(0.25, Color.YELLOW),
+            new Stop(0.5, Color.LIMEGREEN),
+            new Stop(0.75, Color.CYAN),
+            new Stop(1, Color.BLUE)
+    };
+    LinearGradient linearGradient =
+            new LinearGradient(0, 0, 1, 1, true, CycleMethod.NO_CYCLE, stops);
     @Override
     public void start(Stage stage) throws IOException {
+
+        examplebutton = new Button("  ");
+        examplebutton.setLayoutX(720);
+        examplebutton.setLayoutY(0);
+        examplebutton.setPrefSize(60,60);
+        examplebutton.setFocusTraversable(false);
+        examplelineup = new Line(780, 20, 800, 20 );
+        examplelinedown = new Line(780, 40, 800, 40);
+        examplelineleft = new Line(740, 60, 740, 80);
+        examplelineright = new Line(760, 60, 760, 80);
+        exampletextup = new Label();
+        exampletextup.setText("out");
+        exampletextup.setLayoutX(805);
+        exampletextup.setLayoutY(13);
+        exampletextup.setFocusTraversable(false);
+        exampletextup.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR,10));
+        exampletextdown = new Label();
+        exampletextdown.setText("in");
+        exampletextdown.setLayoutX(805);
+        exampletextdown.setLayoutY(34);
+        exampletextdown.setFocusTraversable(false);
+        exampletextdown.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR,10));
+        exampletextleft = new Label();
+        exampletextleft.setText("in");
+        exampletextleft.setLayoutX(736);
+        exampletextleft.setLayoutY(81);
+        exampletextleft.setFocusTraversable(false);
+        exampletextleft.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR,10));
+        exampletextright = new Label();
+        exampletextright.setText("out");
+        exampletextright.setLayoutX(751);
+        exampletextright.setLayoutY(81);
+        exampletextright.setFocusTraversable(false);
+        exampletextright.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR,10));
+        examplecolorrectangle = new Rectangle(780, 170, 30, 550);
+        examplecolorrectangle.setFill(linearGradient);
+        examplewageinfo = new Label();
+        examplewageinfo.setText("Edge color scale");
+        examplewageinfo.setLayoutX(720);
+        examplewageinfo.setLayoutY(420);
+        examplewageinfo.setFocusTraversable(false);
+        examplewageinfo.setRotate(-90);
+        examplewageinfo.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR,12));
+        examplewagefrom = new TextField();
+        examplewagefrom.setText("from");
+        examplewagefrom.setLayoutX(770);
+        examplewagefrom.setLayoutY(725);
+        examplewagefrom.setPrefSize(50,13);
+        examplewagefrom.setAlignment(Pos.CENTER);
+        examplewagefrom.setEditable(false);
+        examplewagefrom.setMouseTransparent(true);
+        examplewagefrom.setFocusTraversable(false);
+        examplewagefrom.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR,12));
+        examplewageto = new TextField();
+        examplewageto.setText("to");
+        examplewageto.setLayoutX(770);
+        examplewageto.setLayoutY(142);
+        examplewageto.setPrefSize(50,13);
+        examplewageto.setAlignment(Pos.CENTER);
+        examplewageto.setEditable(false);
+        examplewageto.setMouseTransparent(true);
+        examplewageto.setFocusTraversable(false);
+        examplewageto.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR,12));
+
 
         generateButton = new Button("Generate");
         generateButton.setPrefSize(100,25);
@@ -117,7 +217,7 @@ public class GUI extends Application {
         resTxt.setFont(Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR,14));
 
         readfileButton.setOnAction(new ReadFile(root));
-        generateButton.setOnAction(new Generator(root,sizeTxt,cohTxt));
+        generateButton.setOnAction(new Generator(root,sizeTxt,cohTxt, examplewagefrom, examplewageto));
         redrawButton.setOnAction(new Redraw(root));
         saveButton.setOnAction(new Save(root));
         deleteButton.setOnAction(new Delete(root));
@@ -133,6 +233,19 @@ public class GUI extends Application {
         root.getChildren().add(cohTxt);
         root.getChildren().add(resLabel);
         root.getChildren().add(resTxt);
+        root.getChildren().add(examplebutton);
+        root.getChildren().add(examplelineup);
+        root.getChildren().add(examplelinedown);
+        root.getChildren().add(examplelineleft);
+        root.getChildren().add(examplelineright);
+        root.getChildren().add(exampletextup);
+        root.getChildren().add(exampletextdown);
+        root.getChildren().add(exampletextleft);
+        root.getChildren().add(exampletextright);
+        root.getChildren().add(examplecolorrectangle);
+        root.getChildren().add(examplewagefrom);
+        root.getChildren().add(examplewageto);
+        root.getChildren().add(examplewageinfo);
 
         stage.setTitle("GraphSolver");
         stage.setResizable(false);
