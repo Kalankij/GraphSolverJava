@@ -5,6 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
+import java.util.Arrays;
+
 public class Draw {
 
     public static void drawGraf(Graf graf, Group root) {
