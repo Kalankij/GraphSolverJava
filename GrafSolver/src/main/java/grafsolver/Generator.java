@@ -184,6 +184,7 @@ public class Generator implements EventHandler<ActionEvent> {
                 }
                 if (blad == 0) {
                     graf = run(width,length,from,to,coherent);
+                    Delete.run();
                     Draw.drawGraf(graf,root);
                     sizeMainTxt.setText(widthTxt.getText() + "x" + lenTxt.getText());
                     if (BFS.run(graf))

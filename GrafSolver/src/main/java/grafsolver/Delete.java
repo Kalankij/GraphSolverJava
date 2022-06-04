@@ -9,15 +9,23 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-public class Delete implements EventHandler<ActionEvent> {
+public class Delete extends Draw implements EventHandler<ActionEvent>  {
 
-    private Group root;
+    private static Group root;
 
     public Delete ( Group root ) {
-        this.root = root;
+        Delete.root = root;
     }
     @Override
     public void handle(ActionEvent event) {
+        root.getChildren().removeAll(getPoint());
+        root.getChildren().removeAll(getLine());
+    }
 
+    public static void run () {
+        if ( getPoint() != null || getLine() != null ) {
+            root.getChildren().removeAll(getPoint());
+            root.getChildren().removeAll(getLine());
+        }
     }
 }

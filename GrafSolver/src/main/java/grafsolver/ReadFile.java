@@ -59,7 +59,6 @@ public class ReadFile implements EventHandler<ActionEvent> {
         secRoot =  new Group();
          secScene = new Scene(secRoot,300,200);
          secStage = new Stage();
-
         chooseButton = new Button("Choose File");
         chooseButton.setLayoutX(50);
         chooseButton.setLayoutY(30);
@@ -114,15 +113,18 @@ public class ReadFile implements EventHandler<ActionEvent> {
             public void handle(ActionEvent actionEvent) {
                 try {
                     graf = wczytaj(file);
-                    Draw.drawGraf(graf,root);
-                    sizeMainTxt.setText(graf.getLength()+"x"+graf.getWidth());
-                    if (BFS.run(graf))
-                        cohMainTxt.setText("true(BFS)");
-                    if (!BFS.run(graf))
-                        cohMainTxt.setText("false(BFS)");
-                    wagescalefrom.setText(String.valueOf(graf.getFrom()));
-                    wagescaleto.setText(String.valueOf(graf.getTo()));
-                } catch (IOException e) {
+                    if (graf != null) {
+                        Delete.run();
+                        Draw.drawGraf(graf, root);
+                        sizeMainTxt.setText(graf.getWidth() + "x" + graf.getLength());
+                        if (BFS.run(graf))
+                            cohMainTxt.setText("true(BFS)");
+                        if (!BFS.run(graf))
+                            cohMainTxt.setText("false(BFS)");
+                        wagescalefrom.setText(String.valueOf(graf.getFrom()));
+                        wagescaleto.setText(String.valueOf(graf.getTo()));
+                    }
+                } catch(IOException e){
                     e.printStackTrace();
                 }
                 root.setDisable(false);
@@ -153,74 +155,55 @@ public class ReadFile implements EventHandler<ActionEvent> {
              columns = in.nextInt();
              rows = in.nextInt();
         } catch (InputMismatchException | NumberFormatException e) {
-            secStage.close();
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Input not valid");
             errorAlert.setContentText("Number of columns and rows must be an Integer and Natural!!");
             errorAlert.show();
+            return null;
         }
         int size = columns*rows;
         if ( size <= 0 ) {
-            secStage.close();
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Input not valid");
             errorAlert.setContentText("Number of columns and rows must be a natural!!");
             errorAlert.show();
+            return null;
         }
-        graf = new Graf(rows,columns,0,0);
+        in.nextLine();
+        graf = new Graf(columns,rows,0,0);
         double max= 0;
         double min = 10000;
-        for ( Wierzcholek w : graf) {
-                if (w.getNumer() == 0 || w.getNumer() == columns - 1 || w.getNumer() == (rows - 1) * columns || w.getNumer() == columns * rows - 1) {
-                    for (int i = 0; i < 2; i++) {
-                        int tmp = 0;
-                        try {
-                            tmp = in.nextInt();
-                            in.skip(" :");
-                        } catch (NumberFormatException e ) {
-                            secStage.close();
-                            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                            errorAlert.setHeaderText("Input not valid");
-                            errorAlert.setContentText("Number of vertex must be a natural!!");
-                            errorAlert.show();
-                        } catch ( NoSuchElementException e) {
-                            System.err.println(file.getName());
-                        }
 
-                        double waga = 0;
-                        try {
-                            waga = Double.parseDouble(in.next());
-                            if ( waga > max ) max = waga;
-                            if (waga < min) min = waga;
-                        } catch (InputMismatchException | NumberFormatException e) {
-                            secStage.close();
-                            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                            errorAlert.setHeaderText("Input not valid");
-                            errorAlert.setContentText("Number of vertex must be a real number!!");
-                            errorAlert.show();
-                        }
-                        w.addKrawedz(tmp, waga);
+
+        for ( Wierzcholek w : graf ) {
+            String line = in.nextLine();
+            int index = 0;
+            while (line.indexOf(":", index) != -1) {
+                double waga = 0;
+                int to = 0;
+                try {
+                    to = Integer.parseInt(line.substring(index, line.indexOf(" ", index)));
+                    index = line.indexOf(":", index) + 1;
+                    waga = Double.parseDouble(line.substring(index, line.indexOf(" ", index)));
+                    if ( waga * to < 0) {
+                        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                        errorAlert.setHeaderText("Input not valid");
+                        errorAlert.setContentText("Wrong file format");
+                        errorAlert.show();
+                        return null;
                     }
-                } else if (w.getNumer() % columns == 0 || (w.getNumer() - 1) % columns == 0 || w.getNumer() < columns - 1 || w.getNumer() > (rows - 1) * columns) {
-                    for (int i = 0; i < 3; i++) {
-                        int tmp = in.nextInt();
-                        in.skip(" :");
-                        double waga = Double.parseDouble(in.next());
-                        if ( waga > max ) max = waga;
-                        if (waga < min) min = waga;
-                        w.addKrawedz(tmp, waga);
-                    }
-                } else {
-                    for (int i = 0; i < 4; i++) {
-                        int tmp = in.nextInt();
-                        in.skip(" :");
-                        double waga = Double.parseDouble(in.next());
-                        if ( waga > max ) max = waga;
-                        if (waga < min) min = waga;
-                        w.addKrawedz(tmp, waga);
-                    }
+                } catch ( InputMismatchException | NumberFormatException e) {
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setHeaderText("Input not valid");
+                    errorAlert.setContentText("Wrong file format");
+                    errorAlert.show();
+                    return null;
                 }
-
+                if (waga > max) max = waga;
+                if (waga < min) min = waga;
+                index = line.indexOf(" ", index) + 1;
+                w.addKrawedz(to, waga);
+            }
         }
         graf.setFrom(Math.round(min));
         graf.setTo(Math.round(max));

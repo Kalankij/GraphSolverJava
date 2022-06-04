@@ -89,7 +89,7 @@ public class Save implements EventHandler<ActionEvent> {
 
     public void zapisz ( File f, Graf graf ) throws IOException {
         BufferedWriter bw = new BufferedWriter(new FileWriter(f)) ;
-        bw.write(graf.getLength() + " " + graf.getWidth() + "\n");
+        bw.write(graf.getWidth() + " " + graf.getLength() + "\n");
         for ( Wierzcholek w: graf) {
             for (Krawedz k : w ) {
                 bw.write(k.getTo() + " :" + k.getWaga() + " ");

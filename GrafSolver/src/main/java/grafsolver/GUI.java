@@ -246,7 +246,6 @@ public class GUI extends Application {
         root.getChildren().add(examplewagefrom);
         root.getChildren().add(examplewageto);
         root.getChildren().add(examplewageinfo);
-
         stage.setTitle("GraphSolver");
         stage.setResizable(false);
         stage.setScene(scene);
