@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 public class Dijkstra {
 
+    private static double suma;
     public static ArrayList<Wierzcholek> run (Graf graf,int start,int end) {
         Kolejka kolejka = new Kolejka(graf.getRozmiar());
         int[] QS = new int[graf.getRozmiar()];
@@ -37,9 +38,20 @@ public class Dijkstra {
             wynik.add(graf.getWierzcholek(kolejka.p[i]));
             i = kolejka.p[i];
         }
+        setSuma(kolejka.d[end]);
         return wynik;
     }
+
+    public static double getSuma() {
+        return suma;
+    }
+
+    public static void setSuma(double suma) {
+        Dijkstra.suma = suma;
+    }
 }
+
+
 class Kolejka implements Iterable<Elem>{
 
     private int rozmiar;

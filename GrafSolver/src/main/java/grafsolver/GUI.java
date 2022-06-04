@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -20,6 +21,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class GUI extends Application {
     private final int WIDTH = 850;
@@ -34,12 +36,9 @@ public class GUI extends Application {
     private Label resLabel;
     private TextField sizeTxt;
     private TextField cohTxt;
-    private TextField resTxt;
+    private static TextField resTxt;
     private Group root = new Group();
     private Scene scene = new Scene(root,WIDTH,HEIGHT);
-
-    private Graf graf;
-
     private Button examplebutton;
     private Line examplelineup;
     private Line examplelinedown;
@@ -218,7 +217,6 @@ public class GUI extends Application {
 
         readfileButton.setOnAction(new ReadFile(root,sizeTxt,cohTxt, examplewagefrom, examplewageto));
         generateButton.setOnAction(new Generator(root,sizeTxt,cohTxt, examplewagefrom, examplewageto));
-        redrawButton.setOnAction(new Redraw(root));
         saveButton.setOnAction(new Save(root));
         deleteButton.setOnAction(new Delete(root));
         redrawButton.setOnAction(new Redraw(root));
@@ -247,6 +245,21 @@ public class GUI extends Application {
         root.getChildren().add(examplewagefrom);
         root.getChildren().add(examplewageto);
         root.getChildren().add(examplewageinfo);
+
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                switch (keyEvent.getCode()) {
+                    case G -> generateButton.fire();
+                    case R -> redrawButton.fire();
+                    case S -> saveButton.fire();
+                    case F -> readfileButton.fire();
+                    case D -> deleteButton.fire();
+                }
+            }
+        });
+
+
         stage.setTitle("GraphSolver");
         stage.setResizable(false);
         stage.setScene(scene);
@@ -258,5 +271,12 @@ public class GUI extends Application {
             }
         });
     }
+    public static void setResult(TextField result,double suma) {
+        result.setText(String.valueOf(suma));
+        result.setAlignment(Pos.CENTER_LEFT);
+    }
 
+    public static TextField getResTxt() {
+        return resTxt;
+    }
 }

@@ -10,6 +10,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DialogEvent;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.paint.Color;
@@ -136,8 +138,12 @@ public class ReadFile implements EventHandler<ActionEvent> {
         secRoot.getChildren().add(chooseButton);
         secRoot.getChildren().add(pathTxt);
         secRoot.getChildren().add(readfileButton);
-
-
+        secScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if ( keyEvent.getCode() == KeyCode.ENTER) readfileButton.fire();
+            }
+        });
         secStage.setScene(secScene);
         secStage.show();
         secStage.setOnCloseRequest(new EventHandler<WindowEvent>() {

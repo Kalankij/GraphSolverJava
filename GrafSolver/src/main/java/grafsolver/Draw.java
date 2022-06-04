@@ -238,6 +238,7 @@ public class Draw {
                         setEnd(finalG);
                         Redraw.run();
                         drawPath(graf,root,getStart(),getEnd());
+                        GUI.setResult(GUI.getResTxt(),Dijkstra.getSuma());
                         setEnd(Integer.MAX_VALUE);
                         setStart(Integer.MIN_VALUE);
                     }
@@ -279,6 +280,7 @@ public class Draw {
     public static void drawPath(Graf graf, Group root, int start, int end) {
         if(start != end) {
             ArrayList<Wierzcholek> path = Dijkstra.run(graf, Draw.getStart(), Draw.getEnd());
+
             pathline = new Line[path.size()];
             int width = graf.getWidth();
             int length = graf.getLength();

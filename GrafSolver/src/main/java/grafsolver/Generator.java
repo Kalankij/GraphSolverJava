@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
@@ -185,7 +187,6 @@ public class Generator implements EventHandler<ActionEvent> {
                 if (blad == 0) {
                     graf = run(width,length,from,to,coherent);
                     Delete.run();
-                    Redraw.run();
                     Draw.drawGraf(graf,root);
                     sizeMainTxt.setText(widthTxt.getText() + "x" + lenTxt.getText());
                     if (BFS.run(graf))
@@ -210,7 +211,12 @@ public class Generator implements EventHandler<ActionEvent> {
         secRoot.getChildren().add(weightLabel);
         secRoot.getChildren().add(weightToTxt);
         secRoot.getChildren().add(generateButton);
-
+        secScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if ( keyEvent.getCode() == KeyCode.ENTER) generateButton.fire();
+            }
+        });
         secStage.setScene(secScene);
         secStage.show();
         secStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
