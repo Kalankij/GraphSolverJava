@@ -115,6 +115,7 @@ public class ReadFile implements EventHandler<ActionEvent> {
                     graf = wczytaj(file);
                     if (graf != null) {
                         Delete.run();
+                        Redraw.run();
                         Draw.drawGraf(graf, root);
                         sizeMainTxt.setText(graf.getWidth() + "x" + graf.getLength());
                         if (BFS.run(graf))

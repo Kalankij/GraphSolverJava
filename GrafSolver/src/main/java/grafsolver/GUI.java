@@ -221,6 +221,7 @@ public class GUI extends Application {
         redrawButton.setOnAction(new Redraw(root));
         saveButton.setOnAction(new Save(root));
         deleteButton.setOnAction(new Delete(root));
+        redrawButton.setOnAction(new Redraw(root));
 
         root.getChildren().add(generateButton);
         root.getChildren().add(redrawButton);

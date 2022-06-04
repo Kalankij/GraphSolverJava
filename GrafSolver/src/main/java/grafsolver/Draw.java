@@ -10,6 +10,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Draw {
@@ -18,6 +20,7 @@ public class Draw {
     private static int end = Integer.MAX_VALUE;
     private static Button [] point;
     private static Line [] line;
+    private static Line [] pathline;
     public static void drawGraf(Graf graf, Group root) {
         point = new Button[graf.getRozmiar()];
         int g  = 0;
@@ -233,8 +236,8 @@ public class Draw {
                     }
                     else if ( getEnd() == Integer.MAX_VALUE ){
                         setEnd(finalG);
-                        System.out.println(getStart()+ " " +getEnd());
-                        //drawPath(graf,root,getStart(),getEnd());
+                        Redraw.run();
+                        drawPath(graf,root,getStart(),getEnd());
                         setEnd(Integer.MAX_VALUE);
                         setStart(Integer.MIN_VALUE);
                     }
@@ -273,6 +276,114 @@ public class Draw {
         }
     }
 
+    public static void drawPath(Graf graf, Group root, int start, int end) {
+        if(start != end) {
+            ArrayList<Wierzcholek> path = Dijkstra.run(graf, Draw.getStart(), Draw.getEnd());
+            pathline = new Line[path.size()];
+            int width = graf.getWidth();
+            int length = graf.getLength();
+            int iloscprzejsc = path.size()-1;
+            int x = 0;
+            double dlugoscliniipoziom = 0;
+            double dlugoscliniipion = 0;
+            int startingpointy = (int) start / width;
+            int startingpointx = start - startingpointy * width;
+            while ( iloscprzejsc > 0) {
+                if(width == length) {
+                    if (path.get(iloscprzejsc).getNumer() == path.get(iloscprzejsc - 1).getNumer() - 1) { //prawo
+                        pathline[x] = new Line(700 / width * startingpointx + 0.375 * 700 / width + dlugoscliniipoziom, 700 / length * startingpointy + 60 + 0.375 * 700 / length + dlugoscliniipion, 700 / width * startingpointx + 0.375 * 700 / width + 700 / width + dlugoscliniipoziom, 700 / length * startingpointy + 60 + 0.375 * 700 / length + dlugoscliniipion);
+                        dlugoscliniipoziom += 700 / width;
+                        iloscprzejsc--;
+                        root.getChildren().add(pathline[x]);
+                        x++;
+                    }
+                    if (iloscprzejsc > 0 && path.get(iloscprzejsc).getNumer() == path.get(iloscprzejsc - 1).getNumer() - width) { //dół
+                        pathline[x] = new Line(700 / width * startingpointx + 0.375 * 700 / width + dlugoscliniipoziom, 700 / length * startingpointy + 60 + 0.375 * 700 / length + dlugoscliniipion, 700 / width * startingpointx + 0.375 * 700 / width + dlugoscliniipoziom, 700 / length * startingpointy + 60 + 0.375 * 700 / length + 700 / length + dlugoscliniipion);
+                        dlugoscliniipion += 700 / length;
+                        iloscprzejsc--;
+                        root.getChildren().add(pathline[x]);
+                        x++;
+                    }
+                    if (iloscprzejsc > 0 && path.get(iloscprzejsc).getNumer() == path.get(iloscprzejsc - 1).getNumer() + 1) { //lewo
+                        pathline[x] = new Line(700 / width * startingpointx + 0.375 * 700 / width + dlugoscliniipoziom, 700 / length * startingpointy + 60 + 0.375 * 700 / length + dlugoscliniipion, 700 / width * startingpointx + 0.375 * 700 / width - 700 / width + dlugoscliniipoziom, 700 / length * startingpointy + 60 + 0.375 * 700 / length + dlugoscliniipion);
+                        dlugoscliniipoziom -= 700 / width;
+                        iloscprzejsc--;
+                        root.getChildren().add(pathline[x]);
+                        x++;
+                    }
+                    if (iloscprzejsc > 0 && path.get(iloscprzejsc).getNumer() == path.get(iloscprzejsc - 1).getNumer() + width) { //góra
+                        pathline[x] = new Line(700 / width * startingpointx + 0.375 * 700 / width + dlugoscliniipoziom, 700 / length * startingpointy + 60 + 0.375 * 700 / length + dlugoscliniipion, 700 / width * startingpointx + 0.375 * 700 / width + dlugoscliniipoziom, 700 / length * startingpointy + 60 + 0.375 * 700 / length - 700 / length + dlugoscliniipion);
+                        dlugoscliniipion -= 700 / length;
+                        iloscprzejsc--;
+                        root.getChildren().add(pathline[x]);
+                        x++;
+                    }
+                }
+                if(width > length) {
+                    if (path.get(iloscprzejsc).getNumer() == path.get(iloscprzejsc - 1).getNumer() - 1) { //prawo
+                        pathline[x] = new Line(700 / width * startingpointx + 0.375 * 700 / width + dlugoscliniipoziom, 700 / width * startingpointy + 60 + 0.375 * 700 / width + dlugoscliniipion, 700 / width * startingpointx + 0.375 * 700 / width + 700 / width + dlugoscliniipoziom, 700 / width * startingpointy + 60 + 0.375 * 700 / width + dlugoscliniipion);
+                        dlugoscliniipoziom += 700 / width;
+                        iloscprzejsc--;
+                        root.getChildren().add(pathline[x]);
+                        x++;
+                    }
+                    if (iloscprzejsc > 0 && path.get(iloscprzejsc).getNumer() == path.get(iloscprzejsc - 1).getNumer() - width) { //dół
+                        pathline[x] = new Line(700 / width * startingpointx + 0.375 * 700 / width + dlugoscliniipoziom, 700 / width * startingpointy + 60 + 0.375 * 700 / width + dlugoscliniipion, 700 / width * startingpointx + 0.375 * 700 / width + dlugoscliniipoziom, 700 / width * startingpointy + 60 + 0.375 * 700 / width + 700 / width + dlugoscliniipion);
+                        dlugoscliniipion += 700 / width;
+                        iloscprzejsc--;
+                        root.getChildren().add(pathline[x]);
+                        x++;
+                    }
+                    if (iloscprzejsc > 0 && path.get(iloscprzejsc).getNumer() == path.get(iloscprzejsc - 1).getNumer() + 1) { //lewo
+                        pathline[x] = new Line(700 / width * startingpointx + 0.375 * 700 / width + dlugoscliniipoziom, 700 / width * startingpointy + 60 + 0.375 * 700 / width + dlugoscliniipion, 700 / width * startingpointx + 0.375 * 700 / width - 700 / width + dlugoscliniipoziom, 700 / width * startingpointy + 60 + 0.375 * 700 / width + dlugoscliniipion);
+                        dlugoscliniipoziom -= 700 / width;
+                        iloscprzejsc--;
+                        root.getChildren().add(pathline[x]);
+                        x++;
+                    }
+                    if (iloscprzejsc > 0 && path.get(iloscprzejsc).getNumer() == path.get(iloscprzejsc - 1).getNumer() + width) { //góra
+                        pathline[x] = new Line(700 / width * startingpointx + 0.375 * 700 / width + dlugoscliniipoziom, 700 / width * startingpointy + 60 + 0.375 * 700 / width + dlugoscliniipion, 700 / width * startingpointx + 0.375 * 700 / width + dlugoscliniipoziom, 700 / width * startingpointy + 60 + 0.375 * 700 / width - 700 / width + dlugoscliniipion);
+                        dlugoscliniipion -= 700 / width;
+                        iloscprzejsc--;
+                        root.getChildren().add(pathline[x]);
+                        x++;
+                    }
+                }
+                if(width < length) {
+                    if (path.get(iloscprzejsc).getNumer() == path.get(iloscprzejsc - 1).getNumer() - 1) { //prawo
+                        pathline[x] = new Line(700 / length * startingpointx + 0.375 * 700 / length + dlugoscliniipoziom, 700 / length * startingpointy + 60 + 0.375 * 700 / length + dlugoscliniipion, 700 / length * startingpointx + 0.375 * 700 / length + 700 / length + dlugoscliniipoziom, 700 / length * startingpointy + 60 + 0.375 * 700 / length + dlugoscliniipion);
+                        dlugoscliniipoziom += 700 / length;
+                        iloscprzejsc--;
+                        root.getChildren().add(pathline[x]);
+                        x++;
+                    }
+                    if (iloscprzejsc > 0 && path.get(iloscprzejsc).getNumer() == path.get(iloscprzejsc - 1).getNumer() - width) { //dół
+                        pathline[x] = new Line(700 / length * startingpointx + 0.375 * 700 / length + dlugoscliniipoziom, 700 / length * startingpointy + 60 + 0.375 * 700 / length + dlugoscliniipion, 700 / length * startingpointx + 0.375 * 700 / length + dlugoscliniipoziom, 700 / length * startingpointy + 60 + 0.375 * 700 / length + 700 / length + dlugoscliniipion);
+                        dlugoscliniipion += 700 / length;
+                        iloscprzejsc--;
+                        root.getChildren().add(pathline[x]);
+                        x++;
+                    }
+                    if (iloscprzejsc > 0 && path.get(iloscprzejsc).getNumer() == path.get(iloscprzejsc - 1).getNumer() + 1) { //lewo
+                        pathline[x] = new Line(700 / length * startingpointx + 0.375 * 700 / length + dlugoscliniipoziom, 700 / length * startingpointy + 60 + 0.375 * 700 / length + dlugoscliniipion, 700 / length * startingpointx + 0.375 * 700 / length - 700 / length + dlugoscliniipoziom, 700 / length * startingpointy + 60 + 0.375 * 700 / length + dlugoscliniipion);
+                        dlugoscliniipoziom -= 700 / length;
+                        iloscprzejsc--;
+                        root.getChildren().add(pathline[x]);
+                        x++;
+                    }
+                    if (iloscprzejsc > 0 && path.get(iloscprzejsc).getNumer() == path.get(iloscprzejsc - 1).getNumer() + width) { //góra
+                        pathline[x] = new Line(700 / length * startingpointx + 0.375 * 700 / length + dlugoscliniipoziom, 700 / length * startingpointy + 60 + 0.375 * 700 / length + dlugoscliniipion, 700 / length * startingpointx + 0.375 * 700 / length + dlugoscliniipoziom, 700 / length * startingpointy + 60 + 0.375 * 700 / length - 700 / length + dlugoscliniipion);
+                        dlugoscliniipion -= 700 / length;
+                        iloscprzejsc--;
+                        root.getChildren().add(pathline[x]);
+                        x++;
+                    }
+
+                }
+            }
+        }
+    }
+
     public static void setStart(int start) {
         Draw.start = start;
     }
@@ -295,5 +406,9 @@ public class Draw {
 
     public static Line[] getLine() {
         return line;
+
+    }
+    public static Line[] getPathline() {
+        return pathline;
     }
 }
