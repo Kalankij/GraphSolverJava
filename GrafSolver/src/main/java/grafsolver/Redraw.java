@@ -9,15 +9,19 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-public class Redraw implements EventHandler<ActionEvent>{
+public class Redraw extends Draw implements EventHandler<ActionEvent>{
 
-    private Group root;
+    private static Group root;
 
     public Redraw ( Group root ) {
-        this.root = root;
+        Redraw.root = root;
     }
     @Override
     public void handle(ActionEvent event) {
-
+        root.getChildren().removeAll(getPathline());
+    }
+    public static void run () {
+        if ( getPathline() != null )
+            root.getChildren().removeAll(getPathline());
     }
 }

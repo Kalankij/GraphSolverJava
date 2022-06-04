@@ -32,6 +32,7 @@ public class Dijkstra {
             }
         }
         i = end;
+        wynik.add(graf.getWierzcholek(end));
         while (kolejka.p[i] != -1) {
             wynik.add(graf.getWierzcholek(kolejka.p[i]));
             i = kolejka.p[i];

@@ -20,6 +20,7 @@ public class Delete extends Draw implements EventHandler<ActionEvent>  {
     public void handle(ActionEvent event) {
         root.getChildren().removeAll(getPoint());
         root.getChildren().removeAll(getLine());
+        root.getChildren().removeAll(getPathline());
     }
 
     public static void run () {
