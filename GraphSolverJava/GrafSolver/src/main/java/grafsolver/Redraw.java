@@ -28,16 +28,6 @@ public class Redraw extends Draw implements EventHandler<ActionEvent>{
             }
             if ( getPathline()!= null)
             root.getChildren().removeAll(getPathline());
-        Graf graf = null;
-        if(Generator.getGraf() != null)
-            graf = Generator.getGraf();
-        else if(ReadFile.getGraf() != null)
-            graf = ReadFile.getGraf();
-        int rozmiar = graf.getRozmiar();
-        Button [] point = getPoint();
-        for( int i = 0; i < rozmiar; i++) {
-            point[i].setStyle("");
-        }
     }
     public static void run () {
         lines.add(getPathline());
