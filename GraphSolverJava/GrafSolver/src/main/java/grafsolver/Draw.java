@@ -285,11 +285,17 @@ public class Draw {
             int width = graf.getWidth();
             int length = graf.getLength();
             int iloscprzejsc = path.size()-1;
+            int iloscprzejscp = path.size()-1;
             int x = 0;
             double dlugoscliniipoziom = 0;
             double dlugoscliniipion = 0;
             int startingpointy = (int) start / width;
             int startingpointx = start - startingpointy * width;
+            point[start].setStyle("-fx-background-color: #000000");
+            while ( iloscprzejscp > 0) {
+                point[path.get(iloscprzejscp-1).getNumer()].setStyle("-fx-background-color: #000000");
+                iloscprzejscp--;
+            }
             while ( iloscprzejsc > 0) {
                 if(width == length) {
                     if (path.get(iloscprzejsc).getNumer() == path.get(iloscprzejsc - 1).getNumer() - 1) { //prawo
@@ -380,7 +386,6 @@ public class Draw {
                         root.getChildren().add(pathline[x]);
                         x++;
                     }
-
                 }
             }
         }
