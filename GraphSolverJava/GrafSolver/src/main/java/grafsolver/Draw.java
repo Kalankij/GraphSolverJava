@@ -38,14 +38,14 @@ public class Draw {
         double from = graf.getFrom();
         int width = graf.getWidth();
         int length = graf.getLength();
-        double red = (to - from) * 0.1 + from;
-        double orange = (to - from) * 0.2 + from;
-        double yellow = (to - from) * 0.35 + from;
-        double lightgreena = (to - from) * 0.45 + from;
-        double limegreen = (to - from) * 0.55 + from;
-        double lightgreenb = (to - from) * 0.65 + from;
-        double cyan = (to - from) * 0.8 + from;
-        double lightblue = (to - from) * 0.9 + from;
+        double lightblue = (to - from) * 0.1 + from;
+        double cyan = (to - from) * 0.2 + from;
+        double lightgreenb = (to - from) * 0.35 + from;
+        double limegreen = (to - from) * 0.45 + from;
+        double lightgreena = (to - from) * 0.55 + from;
+        double yellow = (to - from) * 0.65 + from;
+        double orange = (to - from) * 0.8 + from;
+        double red = (to - from) * 0.9 + from;
         int i = 0;
         int j = 0;
         int k = 0;
@@ -59,23 +59,23 @@ public class Draw {
                     line[z] = new Line(700 / width * k + 0.75 * 700 / width, 60 + 700 / width * j + 0.25 * 700 / width, 700 / width * (k + 1), 60 + 700 / width * j + 0.25 * 700 / width);
                 if (width < length)
                     line[z] = new Line(700 / length * k + 0.75 * 700 / length, 60 + 700 / length * j + 0.25 * 700 / length, 700 / length * (k + 1), 60 + 700 / length * j + 0.25 * 700 / length);
-                if (w.krawedzi.get(0).getWaga() <= red)
+                if (w.krawedzi.get(0).getWaga() >= red)
                     line[z] .setStroke(Color.RED);
-                if (w.krawedzi.get(0).getWaga() > red && w.krawedzi.get(0).getWaga() <= orange)
+                if (w.krawedzi.get(0).getWaga() < red && w.krawedzi.get(0).getWaga() >= orange)
                     line[z] .setStroke(Color.ORANGE);
-                if (w.krawedzi.get(0).getWaga() > orange && w.krawedzi.get(0).getWaga() <= yellow)
+                if (w.krawedzi.get(0).getWaga() < orange && w.krawedzi.get(0).getWaga() >= yellow)
                     line[z] .setStroke(Color.YELLOW);
-                if (w.krawedzi.get(0).getWaga() > yellow && w.krawedzi.get(0).getWaga() <= lightgreena)
+                if (w.krawedzi.get(0).getWaga() < yellow && w.krawedzi.get(0).getWaga() >= lightgreena)
                     line[z] .setStroke(Color.LIGHTGREEN);
-                if (w.krawedzi.get(0).getWaga() > lightgreena && w.krawedzi.get(0).getWaga() <= limegreen)
+                if (w.krawedzi.get(0).getWaga() < lightgreena && w.krawedzi.get(0).getWaga() >= limegreen)
                     line[z] .setStroke(Color.LIMEGREEN);
-                if (w.krawedzi.get(0).getWaga() > limegreen && w.krawedzi.get(0).getWaga() <= lightgreenb)
+                if (w.krawedzi.get(0).getWaga() < limegreen && w.krawedzi.get(0).getWaga() >= lightgreenb)
                     line[z] .setStroke(Color.LIGHTGREEN);
-                if (w.krawedzi.get(0).getWaga() > lightgreenb && w.krawedzi.get(0).getWaga() <= cyan)
+                if (w.krawedzi.get(0).getWaga() < lightgreenb && w.krawedzi.get(0).getWaga() >= cyan)
                     line[z] .setStroke(Color.CYAN);
-                if (w.krawedzi.get(0).getWaga() > cyan && w.krawedzi.get(0).getWaga() <= lightblue)
+                if (w.krawedzi.get(0).getWaga() < cyan && w.krawedzi.get(0).getWaga() >= lightblue)
                     line[z] .setStroke(Color.LIGHTBLUE);
-                if (w.krawedzi.get(0).getWaga() > lightblue)
+                if (w.krawedzi.get(0).getWaga() < lightblue)
                     line[z] .setStroke(Color.BLUE);
                 root.getChildren().add(line[z++] );
             }
@@ -87,23 +87,23 @@ public class Draw {
                         line[z] = new Line(700 / width * k + 0.5 * 700 / width, 60 + 700 / width * j + 0.75 * 700 / width, 700 / width * k + 0.5 * 700 / width, 60 + 700 / width * (j + 1));
                     if (width < length)
                         line[z] = new Line(700 / length * k + 0.5 * 700 / length, 60 + 700 / length * j + 0.75 * 700 / length, 700 / length * k + 0.5 * 700 / length, 60 + 700 / length * (j + 1));
-                    if (w.krawedzi.get(1).getWaga() <= red)
+                    if (w.krawedzi.get(1).getWaga() >= red)
                         line[z].setStroke(Color.RED);
-                    if (w.krawedzi.get(1).getWaga() > red && w.krawedzi.get(1).getWaga() <= orange)
+                    if (w.krawedzi.get(1).getWaga() < red && w.krawedzi.get(1).getWaga() >= orange)
                         line[z].setStroke(Color.ORANGE);
-                    if (w.krawedzi.get(1).getWaga() > orange && w.krawedzi.get(1).getWaga() <= yellow)
+                    if (w.krawedzi.get(1).getWaga() < orange && w.krawedzi.get(1).getWaga() >= yellow)
                         line[z].setStroke(Color.YELLOW);
-                    if (w.krawedzi.get(1).getWaga() > yellow && w.krawedzi.get(1).getWaga() <= lightgreena)
+                    if (w.krawedzi.get(1).getWaga() < yellow && w.krawedzi.get(1).getWaga() >= lightgreena)
                         line[z].setStroke(Color.LIGHTGREEN);
-                    if (w.krawedzi.get(1).getWaga() > lightgreena && w.krawedzi.get(1).getWaga() <= limegreen)
+                    if (w.krawedzi.get(1).getWaga() < lightgreena && w.krawedzi.get(1).getWaga() >= limegreen)
                         line[z].setStroke(Color.LIMEGREEN);
-                    if (w.krawedzi.get(1).getWaga() > limegreen && w.krawedzi.get(1).getWaga() <= lightgreenb)
+                    if (w.krawedzi.get(1).getWaga() < limegreen && w.krawedzi.get(1).getWaga() >= lightgreenb)
                         line[z].setStroke(Color.LIGHTGREEN);
-                    if (w.krawedzi.get(1).getWaga() > lightgreenb && w.krawedzi.get(1).getWaga() <= cyan)
+                    if (w.krawedzi.get(1).getWaga() < lightgreenb && w.krawedzi.get(1).getWaga() >= cyan)
                         line[z].setStroke(Color.CYAN);
-                    if (w.krawedzi.get(1).getWaga() > cyan && w.krawedzi.get(1).getWaga() <= lightblue)
+                    if (w.krawedzi.get(1).getWaga() < cyan && w.krawedzi.get(1).getWaga() >= lightblue)
                         line[z].setStroke(Color.LIGHTBLUE);
-                    if (w.krawedzi.get(1).getWaga() > lightblue)
+                    if (w.krawedzi.get(1).getWaga() < lightblue)
                         line[z].setStroke(Color.BLUE);
                     root.getChildren().add(line[z++]);
                 }
@@ -114,23 +114,23 @@ public class Draw {
                         line[z] = new Line(700 / width * k + 0.5 * 700 / width, 60 + 700 / width * j + 0.75 * 700 / width, 700 / width * k + 0.5 * 700 / width, 60 + 700 / width * (j + 1));
                     if (width < length)
                         line[z] = new Line(700 / length * k + 0.5 * 700 / length, 60 + 700 / length * j + 0.75 * 700 / length, 700 / length * k + 0.5 * 700 / length, 60 + 700 / length * (j + 1));
-                    if (w.krawedzi.get(0).getWaga() <= red)
+                    if (w.krawedzi.get(0).getWaga() >= red)
                         line[z].setStroke(Color.RED);
-                    if (w.krawedzi.get(0).getWaga() > red && w.krawedzi.get(0).getWaga() <= orange)
+                    if (w.krawedzi.get(0).getWaga() < red && w.krawedzi.get(0).getWaga() >= orange)
                         line[z].setStroke(Color.ORANGE);
-                    if (w.krawedzi.get(0).getWaga() > orange && w.krawedzi.get(0).getWaga() <= yellow)
+                    if (w.krawedzi.get(0).getWaga() < orange && w.krawedzi.get(0).getWaga() >= yellow)
                         line[z].setStroke(Color.YELLOW);
-                    if (w.krawedzi.get(0).getWaga() > yellow && w.krawedzi.get(0).getWaga() <= lightgreena)
+                    if (w.krawedzi.get(0).getWaga() < yellow && w.krawedzi.get(0).getWaga() >= lightgreena)
                         line[z].setStroke(Color.LIGHTGREEN);
-                    if (w.krawedzi.get(0).getWaga() > lightgreena && w.krawedzi.get(0).getWaga() <= limegreen)
+                    if (w.krawedzi.get(0).getWaga() < lightgreena && w.krawedzi.get(0).getWaga() >= limegreen)
                         line[z].setStroke(Color.LIMEGREEN);
-                    if (w.krawedzi.get(0).getWaga() > limegreen && w.krawedzi.get(0).getWaga() <= lightgreenb)
+                    if (w.krawedzi.get(0).getWaga() < limegreen && w.krawedzi.get(0).getWaga() >= lightgreenb)
                         line[z].setStroke(Color.LIGHTGREEN);
-                    if (w.krawedzi.get(0).getWaga() > lightgreenb && w.krawedzi.get(0).getWaga() <= cyan)
+                    if (w.krawedzi.get(0).getWaga() < lightgreenb && w.krawedzi.get(0).getWaga() >= cyan)
                         line[z].setStroke(Color.CYAN);
-                    if (w.krawedzi.get(0).getWaga() > cyan && w.krawedzi.get(0).getWaga() <= lightblue)
+                    if (w.krawedzi.get(0).getWaga() < cyan && w.krawedzi.get(0).getWaga() >= lightblue)
                         line[z].setStroke(Color.LIGHTBLUE);
-                    if (w.krawedzi.get(0).getWaga() > lightblue)
+                    if (w.krawedzi.get(0).getWaga() < lightblue)
                         line[z].setStroke(Color.BLUE);
                     root.getChildren().add(line[z++]);
                 }
@@ -144,23 +144,23 @@ public class Draw {
                             line[z]  = new Line(700 / width * k, 60 + 700 / width * j + 0.5 * 700 / width, 700 / width * (k - 1) + 0.75 * 700 / width, 60 + 700 / width * j + 0.5 * 700 / width);
                         if (width < length)
                             line[z]  = new Line(700 / length * k, 60 + 700 / length * j + 0.5 * 700 / length, 700 / length * (k - 1) + 0.75 * 700 / length, 60 + 700 / length * j + 0.5 * 700 / length);
-                        if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() <= red)
+                        if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() >= red)
                             line[z] .setStroke(Color.RED);
-                        if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() > red && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() <= orange)
+                        if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() < red && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() >= orange)
                             line[z] .setStroke(Color.ORANGE);
-                        if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() > orange && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() <= yellow)
+                        if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() < orange && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() >= yellow)
                             line[z] .setStroke(Color.YELLOW);
-                        if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() > yellow && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() <= lightgreena)
+                        if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() < yellow && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() >= lightgreena)
                             line[z] .setStroke(Color.LIGHTGREEN);
-                        if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() > lightgreena && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() <= limegreen)
+                        if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() < lightgreena && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() >= limegreen)
                             line[z] .setStroke(Color.LIMEGREEN);
-                        if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() > limegreen && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() <= lightgreenb)
+                        if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() < limegreen && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() >= lightgreenb)
                             line[z] .setStroke(Color.LIGHTGREEN);
-                        if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() > lightgreenb && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() <= cyan)
+                        if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() < lightgreenb && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() >= cyan)
                             line[z] .setStroke(Color.CYAN);
-                        if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() > cyan && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() <= lightblue)
+                        if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() < cyan && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() >= lightblue)
                             line[z] .setStroke(Color.LIGHTBLUE);
-                        if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() > lightblue)
+                        if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() < lightblue)
                             line[z] .setStroke(Color.BLUE);
                         root.getChildren().add(line[z++] );
                     }
@@ -174,23 +174,23 @@ public class Draw {
                                 line[z] = new Line(700 / width * k, 60 + 700 / width * j + 0.5 * 700 / width, 700 / width * (k - 1) + 0.75 * 700 / width, 60 + 700 / width * j + 0.5 * 700 / width);
                             if (width < length)
                                 line[z] = new Line(700 / length * k, 60 + 700 / length * j + 0.5 * 700 / length, 700 / length * (k - 1) + 0.75 * 700 / length, 60 + 700 / length * j + 0.5 * 700 / length);
-                            if (w.krawedzi.get(w.krawedzi.size() - 2).getWaga() <= red)
+                            if (w.krawedzi.get(w.krawedzi.size() - 2).getWaga() >= red)
                                 line[z].setStroke(Color.RED);
-                            if (w.krawedzi.get(w.krawedzi.size() - 2).getWaga() > red && w.krawedzi.get(w.krawedzi.size() - 2).getWaga() <= orange)
+                            if (w.krawedzi.get(w.krawedzi.size() - 2).getWaga() < red && w.krawedzi.get(w.krawedzi.size() - 2).getWaga() >= orange)
                                 line[z].setStroke(Color.ORANGE);
-                            if (w.krawedzi.get(w.krawedzi.size() - 2).getWaga() > orange && w.krawedzi.get(w.krawedzi.size() - 2).getWaga() <= yellow)
+                            if (w.krawedzi.get(w.krawedzi.size() - 2).getWaga() < orange && w.krawedzi.get(w.krawedzi.size() - 2).getWaga() >= yellow)
                                 line[z].setStroke(Color.YELLOW);
-                            if (w.krawedzi.get(w.krawedzi.size() - 2).getWaga() > yellow && w.krawedzi.get(w.krawedzi.size() - 2).getWaga() <= lightgreena)
+                            if (w.krawedzi.get(w.krawedzi.size() - 2).getWaga() < yellow && w.krawedzi.get(w.krawedzi.size() - 2).getWaga() >= lightgreena)
                                 line[z].setStroke(Color.LIGHTGREEN);
-                            if (w.krawedzi.get(w.krawedzi.size() - 2).getWaga() > lightgreena && w.krawedzi.get(w.krawedzi.size() - 2).getWaga() <= limegreen)
+                            if (w.krawedzi.get(w.krawedzi.size() - 2).getWaga() < lightgreena && w.krawedzi.get(w.krawedzi.size() - 2).getWaga() >= limegreen)
                                 line[z].setStroke(Color.LIMEGREEN);
-                            if (w.krawedzi.get(w.krawedzi.size() - 2).getWaga() > limegreen && w.krawedzi.get(w.krawedzi.size() - 2).getWaga() <= lightgreenb)
+                            if (w.krawedzi.get(w.krawedzi.size() - 2).getWaga() < limegreen && w.krawedzi.get(w.krawedzi.size() - 2).getWaga() >= lightgreenb)
                                 line[z].setStroke(Color.LIGHTGREEN);
-                            if (w.krawedzi.get(w.krawedzi.size() - 2).getWaga() > lightgreenb && w.krawedzi.get(w.krawedzi.size() - 2).getWaga() <= cyan)
+                            if (w.krawedzi.get(w.krawedzi.size() - 2).getWaga() < lightgreenb && w.krawedzi.get(w.krawedzi.size() - 2).getWaga() >= cyan)
                                 line[z].setStroke(Color.CYAN);
-                            if (w.krawedzi.get(w.krawedzi.size() - 2).getWaga() > cyan && w.krawedzi.get(w.krawedzi.size() - 2).getWaga() <= lightblue)
+                            if (w.krawedzi.get(w.krawedzi.size() - 2).getWaga() < cyan && w.krawedzi.get(w.krawedzi.size() - 2).getWaga() >= lightblue)
                                 line[z].setStroke(Color.LIGHTBLUE);
-                            if (w.krawedzi.get(w.krawedzi.size() - 2).getWaga() > lightblue)
+                            if (w.krawedzi.get(w.krawedzi.size() - 2).getWaga() < lightblue)
                                 line[z].setStroke(Color.BLUE);
                             root.getChildren().add(line[z++]);
                         }
@@ -205,23 +205,23 @@ public class Draw {
                         line[z] = new Line(700 / width * k + 0.25 * 700 / width, 60 + 700 / width * j, 700 / width * k + +0.25 * 700 / width, 60 + 700 / width * (j - 1) + 0.75 * 700 / width);
                     if (width < length)
                         line[z] = new Line(700 / length * k + 0.25 * 700 / length, 60 + 700 / length * j, 700 / length * k + +0.25 * 700 / length, 60 + 700 / length * (j - 1) + 0.75 * 700 / length);
-                    if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() <= red)
+                    if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() >= red)
                         line[z].setStroke(Color.RED);
-                    if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() > red && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() <= orange)
+                    if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() < red && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() >= orange)
                         line[z].setStroke(Color.ORANGE);
-                    if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() > orange && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() <= yellow)
+                    if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() < orange && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() >= yellow)
                         line[z].setStroke(Color.YELLOW);
-                    if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() > yellow && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() <= lightgreena)
+                    if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() < yellow && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() >= lightgreena)
                         line[z].setStroke(Color.LIGHTGREEN);
-                    if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() > lightgreena && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() <= limegreen)
+                    if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() < lightgreena && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() >= limegreen)
                         line[z].setStroke(Color.LIMEGREEN);
-                    if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() > limegreen && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() <= lightgreenb)
+                    if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() < limegreen && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() >= lightgreenb)
                         line[z].setStroke(Color.LIGHTGREEN);
-                    if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() > lightgreenb && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() <= cyan)
+                    if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() < lightgreenb && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() >= cyan)
                         line[z].setStroke(Color.CYAN);
-                    if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() > cyan && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() <= lightblue)
+                    if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() < cyan && w.krawedzi.get(w.krawedzi.size() - 1).getWaga() >= lightblue)
                         line[z].setStroke(Color.LIGHTBLUE);
-                    if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() > lightblue)
+                    if (w.krawedzi.get(w.krawedzi.size() - 1).getWaga() < lightblue)
                         line[z].setStroke(Color.BLUE);
                     root.getChildren().add(line[z++]);
                 }

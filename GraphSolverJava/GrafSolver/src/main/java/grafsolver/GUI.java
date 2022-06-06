@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class GUI extends Application {
     private final int WIDTH = 850;
-    private final int HEIGHT = 745;
+    private final int HEIGHT = 760;
     private Button generateButton;
     private Button redrawButton;
     private Button saveButton;
